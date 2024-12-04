@@ -79,7 +79,7 @@ def sortByProblem(url, cid, cds_username, cds_passwd, output_path):
         submission_id = judgement['submission_id']
         status = judgement['judgement_type_id']
         submission = getSubmission(url, cid, submission_id, cds_username, cds_passwd)
-        # team_id = submission['team_id']
+
         problem = submission['problem_id']
         language = submission['language_id']
 
