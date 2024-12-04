@@ -1,0 +1,16 @@
+{
+  "url": "http://10.199.227.101/",
+  "contest": 3,
+  "problems": ["19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29"],
+  "users": [
+    "validtor01", "validtor02", "validtor03", "validtor04", "validtor05",
+    "validtor06", "validtor07", "validtor08", "validtor09", "validtor10"
+  ],
+  "passwd": [
+    "lqsauv", "lqsauv", "lqsauv", "lqsauv", "lqsauv",
+    "lqsauv", "lqsauv", "lqsauv", "lqsauv", "lqsauv"
+  ],
+  "rounds": 1,
+  "speed": 3,
+  "catogory": "ac"
+}

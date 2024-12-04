@@ -32,7 +32,10 @@ def process_csv(path, output_path):
         file.write('teams\t1\n')
         # 1    external_ID    group_id    team_name    institution_name    institution_short_name    country_code
         for team in data:
-            context = f'{team[0]}\t{team[1]}\t{team[3]}\t{team[-2]+'-'+team[2]}\t{team[-2]}\t{team[-2]}\t\n'
+            # institution_name与institution_short_name导入后的分类结果不行
+            # 建议直接通过定义Categories去分类
+            # 这里直接留空
+            context = f'{team[0]}\t{team[1]}\t{team[3]}\t{team[-2]}-{team[2]}\t{""}\t{""}\t\n'
             file.write(context)
     
     # accounts.tsv
@@ -40,7 +43,7 @@ def process_csv(path, output_path):
         file.write('accounts\t1\n')
         # account_type	fullname	username	password
         for team in data:
-            context = f'team\t{team[-2]+'-'+team[2]}\t{team[1]}\t{team[-1]}\n'
+            context = f'team\t{team[-2]}-{team[2]}\t{team[1]}\t{team[-1]}\n'
             file.write(context)
 
 
@@ -53,6 +56,16 @@ if __name__ == '__main__':
     # 创建输出文件
     if os.path.exists(output_path): shutil.rmtree(output_path)
     os.mkdir(output_path)
-    
-    
-    process_csv('AccountGenerator/list/validator.csv', output_path)
+
+    list_dir = os.path.join(script_dir, 'list')
+    if not os.path.exists(list_dir):
+        print('fail to find list')
+        exit(0)
+
+
+    # 获取文件夹中所有的文件和目录
+    with os.scandir(list_dir) as entries:
+        for entry in entries:
+            # 检查是否是文件并且以 .csv 结尾
+            if entry.is_file() and entry.name.endswith('.csv'):
+                process_csv(entry.path, output_path)

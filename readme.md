@@ -44,3 +44,83 @@ python AccountGenerator/account-generator.py
 ```
 
 输出在`output`
+
+在OJ后台`domjudge/jury/import-export`导入即可
+
+在Tab-separated import
+- Type选择team, 先导入teams.tsv
+- Type选择account, 先导入accounts.tsv
+
+
+## Submit
+
+当你已经导入完题目、测试账号时，肯定需要交一发正解测试一下
+
+在`Submit`文件夹下修改`config.json`
+
+```json
+{
+  "url": "http://10.199.227.101/",
+  // 比赛url
+  "contest": 3,
+  // 比赛id 在jury界面查看
+  // 题目编号列表 最好是按照abcde顺序
+  "problems": ["19","20","21","22","23","24","25","26","27","28","29"],
+  
+  // 执行交题程序的账号列表
+  "users": [
+    "validtor01","validtor02","validtor03","validtor04","validtor05",
+    "validtor06","validtor07","validtor08","validtor09","validtor10"
+  ],
+  // 执行交题程序的密码列表，与账号对应
+  "passwd": [
+    "lqsauv","lqsauv","lqsauv","lqsauv","lqsauv",
+    "lqsauv","lqsauv","lqsauv","lqsauv","lqsauv"
+  ],
+  "rounds": 1, // 提交轮次（每题会被提交rounds遍 可以测试服务器）
+  "speed": 3, // 交题速度 每交一次题 有1/speed的概率sleep 1s
+  "catogory": "ac" // 只交ac代码（"others"只交错误代码 "all"全部交）
+}
+
+```
+在`Submit/submissions`文件夹下添加对应题号的文件夹：
+以题目19为例，我们在其对应文件夹下新建2个子文件夹：
+- ac：把对应题目的应该ac的代码放在这里即可
+- others：不能ac的题目放到这里
+
+```plain
+.
+├── Submit.py
+├── config.json
+└── submissions
+    ├── 19
+    │         ├── ac
+    │         └── others
+    ├── 20
+    │         ├── ac
+    │         └── others
+
+```
+
+```bash
+python Submit/Submit.py 
+```
+
+## CodeExport
+
+赛后需要导出选手代码，或是验题后导出所有验题程序
+
+```json
+{
+  "url": "http://ip/", // url
+  "cid": 3, // 导出的比赛
+  "cds-username": "cds", // 必须拥有admin权限的账号
+  "cds-passwd": "cds",
+  "category": "problem" // 按题目分类（team 按队伍分类）
+}
+```
+
+```bash
+python CodeExport/codeExport.py
+```
+输出结果在`output`中
